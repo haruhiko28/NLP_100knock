@@ -60,3 +60,26 @@ for line1,line2 in zip(lines1, lines2):
 ans_13.close()
 
 #================================================================================
+
+print("\n --- 14. 先頭からN行を出力 --- ")
+
+import linecache
+
+a = input('取り出したい行数は？：')
+for i in range(int(a) + 1):
+    target_line = linecache.getline('hightemp.txt', i)
+    print(target_line)
+    linecache.clearcache()
+
+
+#================================================================================
+
+print("\n --- 15. 末尾のN行を出力 --- ")
+
+import linecache
+
+a = input('取り出したい行数は？：')
+for i in range(num_lines - (int(a) - 1), num_lines + 1):
+    target_line = linecache.getline('hightemp.txt', i)
+    print(target_line)
+    linecache.clearcache()
