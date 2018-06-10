@@ -76,10 +76,61 @@ for i in range(int(a) + 1):
 
 print("\n --- 15. 末尾のN行を出力 --- ")
 
-import linecache
 
 a = input('取り出したい行数は？：')
 for i in range(num_lines - (int(a) - 1), num_lines + 1):
     target_line = linecache.getline('hightemp.txt', i)
     print(target_line)
     linecache.clearcache()
+
+#================================================================================
+
+print("\n --- 16. ファイルをN分割する --- ")
+
+a = input('N分割？：')
+
+num_1_group = int(num_lines / int(a))
+
+g_num = 1
+for i in range(num_lines + 1):
+    if i % num_1_group - 1 == 0:
+        print('group' + str(g_num))
+        g_num += 1
+
+    target_line = linecache.getline('hightemp.txt', i)
+    print(target_line)
+    linecache.clearcache()
+
+#================================================================================
+
+print("\n --- 17. １列目の文字列の異なり --- ")
+
+target_line = linecache.getline('hightemp.txt', 1)
+ans_17 = target_line.split(" ")
+ans_17 = ans_17[0].replace("\n"," ")
+ans_17 = ans_17.replace("\t"," ")
+ans_17 = ans_17.replace(" ","")
+print(ans_17)
+
+alnum = []
+alpha = []
+digit = []
+decimal = []
+numeric = []
+
+syugo_list = (alnum, alpha, digit , decimal, numeric)
+
+for ix in range(len(ans_17)):
+    if ans_17[ix].isalnum():
+        alnum.append(ans_17[ix])
+    if ans_17[ix].isalpha():
+        alpha.append(ans_17[ix])
+    if ans_17[ix].isdigit():
+        digit.append(ans_17[ix])
+    if ans_17[ix].isdecimal():
+        decimal.append(ans_17[ix])
+    if ans_17[ix].isnumeric():
+        numeric.append(ans_17[ix])
+
+for _ in syugo_list:
+    print(_)
