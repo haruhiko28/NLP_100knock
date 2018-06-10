@@ -134,3 +134,21 @@ for ix in range(len(ans_17)):
 
 for _ in syugo_list:
     print(_)
+
+#================================================================================
+
+print("\n --- 18. 各行を3コラム目の数値の降順にソート --- ")
+
+import pandas as pd
+
+df = pd.read_table("hightemp.txt",header = None)
+df.columns = ['prefecture','place', 'temp', 'day']
+
+df = df.sort_values(by = ['temp'], ascending=False)
+print(df)
+
+#================================================================================
+
+print("\n --- 19. 各行の1コラム目の文字列の出現頻度を求め，出現頻度の高い順に並べる --- ")
+
+print(df['prefecture'].value_counts())
