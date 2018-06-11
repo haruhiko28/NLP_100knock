@@ -7,12 +7,16 @@ print("\n --- 10. 行数のカウント --- ")
 num_lines = sum(1 for line in open('hightemp.txt'))
 print(num_lines)
 
+# wc hightemp.txt
 #================================================================================
 
 print("\n --- 11. タブをスペースに置換 --- ")
 
 f = open('hightemp.txt','r')
 Allf = f.read()
+print(Allf)
+
+print('\n↓↓↓↓↓↓↓↓↓↓↓( ^ω^ )( ^ω^ )スペースに変換するンゴ( ^ω^ )( ^ω^ )↓↓↓↓↓↓↓↓↓↓↓\n')
 
 text = Allf.expandtabs(1)
 print( text )
@@ -23,6 +27,17 @@ f.close()
 
 print("\n --- 12. 1列目をcol1.txtに，2列目をcol2.txtに保存 --- ")
 
+import pandas as pd
+
+df = pd.read_table("hightemp.txt",header = None)
+df.columns = ['prefecture','place', 'temp', 'day']
+
+df['prefecture'].to_csv('col1.txt',index=False)
+df['place'].to_csv('col2.txt',index=False)
+
+
+'''
+全然やってることちゃうやんけ！！！！！！！！！！！
 ld = open("hightemp.txt")
 lines = ld.readlines()
 ld.close()
@@ -38,11 +53,19 @@ for ix , line in enumerate(lines):
 
 f1.close()
 f2.close()
-
+'''
 #================================================================================
 
 print("\n --- 13. col1.txtとcol2.txtをマージ --- ")
 
+col1 = pd.read_csv('col1.txt')
+col2 = pd.read_csv('col2.txt')
+
+col1_2 = pd.concat([col1, col2],axis=1)
+
+col1_2.to_csv('ans_13.txt',sep='\t',index=False)
+
+'''
 f1 = open('col1.txt')
 f2 = open('col2.txt')
 
@@ -58,7 +81,7 @@ for line1,line2 in zip(lines1, lines2):
     ans_13.write(line1 + line2)
 
 ans_13.close()
-
+'''
 #================================================================================
 
 print("\n --- 14. 先頭からN行を出力 --- ")
@@ -94,7 +117,7 @@ num_1_group = int(num_lines / int(a))
 g_num = 1
 for i in range(num_lines + 1):
     if i % num_1_group - 1 == 0:
-        print('group' + str(g_num))
+        print('==== group ' + str(g_num) + ' ====\n')
         g_num += 1
 
     target_line = linecache.getline('hightemp.txt', i)
@@ -105,6 +128,18 @@ for i in range(num_lines + 1):
 
 print("\n --- 17. １列目の文字列の異なり --- ")
 
+prefec_list = list(df['prefecture'])
+mojiretu = ','.join(prefec_list)
+mojiretu = mojiretu.replace(",","")
+mojiretu_list = list(mojiretu)
+print(mojiretu_list)
+
+syugo = list(set(mojiretu_list))
+
+print('\n↓↓↓↓↓↓↓↓↓↓↓( ^ω^ )( ^ω^ )集合に変換するンゴ( ^ω^ )( ^ω^ )↓↓↓↓↓↓↓↓↓↓↓\n')
+
+print(syugo)
+"""
 target_line = linecache.getline('hightemp.txt', 1)
 ans_17 = target_line.split(" ")
 ans_17 = ans_17[0].replace("\n"," ")
@@ -134,15 +169,10 @@ for ix in range(len(ans_17)):
 
 for _ in syugo_list:
     print(_)
-
+"""
 #================================================================================
 
 print("\n --- 18. 各行を3コラム目の数値の降順にソート --- ")
-
-import pandas as pd
-
-df = pd.read_table("hightemp.txt",header = None)
-df.columns = ['prefecture','place', 'temp', 'day']
 
 df = df.sort_values(by = ['temp'], ascending=False)
 print(df)
