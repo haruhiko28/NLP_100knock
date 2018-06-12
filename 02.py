@@ -1,5 +1,4 @@
 
-
 #================================================================================
 
 print("\n --- 10. 行数のカウント --- ")
@@ -35,6 +34,12 @@ df.columns = ['prefecture','place', 'temp', 'day']
 df['prefecture'].to_csv('col1.txt',index=False)
 df['place'].to_csv('col2.txt',index=False)
 
+with open("hightemp.txt", "r") as f:
+    lines = f.readlines()
+    lines = lines.replace('\n','')
+    lines = lines.replace('\t','')
+    print(lines)
+    print(len(lines))
 
 #================================================================================
 
@@ -93,28 +98,13 @@ for i in range(num_lines + 1):
 
 print("\n --- 17. １列目の文字列の異なり --- ")
 
-'''
-prefec_list = list(df['prefecture'])
-mojiretu = ','.join(prefec_list)
-mojiretu = mojiretu.replace(",","")
-mojiretu_list = list(mojiretu)
-print(mojiretu_list)
-
-syugo = list(set(mojiretu_list))
-
-print('\n↓↓↓↓↓↓↓↓↓↓↓( ^ω^ )( ^ω^ )集合に変換するンゴ( ^ω^ )( ^ω^ )↓↓↓↓↓↓↓↓↓↓↓\n')
-
-print(syugo)
-'''
-
 print(df['prefecture'].unique().tolist())
 
 #================================================================================
 
 print("\n --- 18. 各行を3コラム目の数値の降順にソート --- ")
 
-df = df.sort_values(by = ['temp'], ascending=False)
-print(df)
+print(df.sort_values(by = ['temp'], ascending=False))
 
 #================================================================================
 
